@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import './input.css'
-export function Input() {
-    const [name, setName] = useState ('')
+export function Input({addName, lastName,firstName, addSurName}) {
+    
     return (
-    <div>
-        <input className='input' placeholder='seach' onChange={(event) => setName(event.target.value) }  />
-        <h2>{name}</h2>
+    <div className='inputt'>
+        <input className='input' placeholder='name'  value={firstName} onChange={addName}/>
+        <input className='input' id='input' placeholder='surname'  value={lastName}  onChange={addSurName} />
     </div>
     )
 }
