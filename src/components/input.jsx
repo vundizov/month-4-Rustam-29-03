@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import './input.css'
-export function Input({addName, lastName,firstName, addSurName}) {
+export function Input({value, setValue}) {
     
     return (
     <div className='inputt'>
-        <input className='input' placeholder='name'  value={firstName} onChange={addName}/>
-        <input className='input' id='input' placeholder='surname'  value={lastName}  onChange={addSurName} />
+        <input className='input' placeholder='name'  value={value} onChange={e=>setValue(e.target.value)}/>
     </div>
     )
 }
