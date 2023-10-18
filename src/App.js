@@ -18,12 +18,17 @@ function App() {
   
   const [list, setList] = useState (cards)
   const [query, setQuery] = useState('')
-  const [idobj, setIdobj] = useState ({id:7})
 
+ 
     const handelFilterOnclick = () => {
-      // setIdobj({... idobj, id: idobj.id + 1})
-      // // setList(list.filter(i => i.name === query))
-      setList (...cards, {id:7, name:query})
+      const Cards = cards.filter(i => i.id === query)
+      if (Cards.length === 0) {
+      const id = list.length
+      const item = {id: id, name: query}
+      setList([...list, item])
+    }else{
+      setList(Cards)
+    }
       setQuery('')
     }
     
@@ -34,7 +39,7 @@ function App() {
         <button onClick={handelFilterOnclick}>кнопка</button>
 
 
-        {list.map((card)=>{
+        {list.map((card) => {
           return <Card key={card.id} name={card.name}/>
         })}
 
