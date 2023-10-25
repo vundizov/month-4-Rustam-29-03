@@ -1,48 +1,54 @@
 import logo from './logo.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import {Button} from "./components/button";
 import {Input} from "./components/input";
 import { Card } from './components/card';
-
-const cards = [
-  {id: 1,name:"milk"},
-  {id: 2,name:"potato"},
-  {id: 3,name:"cola"},
-  {id: 4,name:"pivo"},
-  {id: 5,name:"tomatto"},
-  {id: 6,name:"water"},  
-]
+import axios from 'axios'
 
 function App() {
   
-  const [list, setList] = useState (cards)
+  const [list, setList] = useState ([])
   const [query, setQuery] = useState('')
 
- 
-    const handelFilterOnclick = () => {
-      const Cards = cards.filter(i => i.id === query)
-      if (Cards.length === 0) {
-      const id = list.length
-      const item = {id: id, name: query}
-      setList([...list, item])
-    }else{
-      setList(Cards)
-    }
-      setQuery('')
-    }
+  useEffect (() => {
+  async function fetchData() {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/todos')
     
- 
+    setList(response.data)
+  }
+    fetchData()
+
+  },[])
+
+  const add = (e)=> {
+    e.preventDefault()
+    const New = {
+      title:query,
+      id: Date.now()
+    } 
+    setList([...list, New])
+    setQuery('')
+  }
+
+  const Delete = (id)=> {
+    setList(list.filter((it)=> it.id != id))
+  }
+
   return (
     <div className="App">
-        <Input value={query} setValue={setQuery}/> 
-        <button onClick={handelFilterOnclick}>кнопка</button>
+
+      <form onSubmit={add}>
+        <input value={query} onChange={(e)=> setQuery(e.target.value)}/>
+        <button type='submit'>кнопка</button>
+      </form>  
 
 
-        {list.map((card) => {
-          return <Card key={card.id} name={card.name}/>
-        })}
-
+      {list.map((it) => (
+        <div key={it.id} className=''>{it.title}<button onClick={()=> Delete(it.id)}> 
+          delete
+          </button></div>
+      ))}
     </div>
     );
   }
