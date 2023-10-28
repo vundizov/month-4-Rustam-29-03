@@ -1,54 +1,28 @@
-import logo from './logo.svg';
-import { useEffect, useState } from 'react';
+
+
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import {Button} from "./components/button";
-import {Input} from "./components/input";
-import { Card } from './components/card';
-import axios from 'axios'
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Contacts from './pages/contacts';
+import Portfolio from './pages/portfolio';
+import Error from './pages/error';
+
+
+
+
 
 function App() {
-  
-  const [list, setList] = useState ([])
-  const [query, setQuery] = useState('')
-
-  useEffect (() => {
-  async function fetchData() {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/todos')
-    
-    setList(response.data)
-  }
-    fetchData()
-
-  },[])
-
-  const add = (e)=> {
-    e.preventDefault()
-    const New = {
-      title:query,
-      id: Date.now()
-    } 
-    setList([...list, New])
-    setQuery('')
-  }
-
-  const Delete = (id)=> {
-    setList(list.filter((it)=> it.id != id))
-  }
-
   return (
     <div className="App">
-
-      <form onSubmit={add}>
-        <input value={query} onChange={(e)=> setQuery(e.target.value)}/>
-        <button type='submit'>кнопка</button>
-      </form>  
-
-
-      {list.map((it) => (
-        <div key={it.id} className=''>{it.title}<button onClick={()=> Delete(it.id)}> 
-          delete
-          </button></div>
-      ))}
+      <Routes>
+        <Route path='/' element={<Layout/>}>
+          <Route index element={<Home/>}/>
+          <Route path='contacts' element={<Contacts/>}/>
+          <Route path='portfolio' element={<Portfolio/>}/>
+          <Route path='*' element={<Error/>}/>
+        </Route>
+      </Routes>
     </div>
     );
   }
