@@ -12,7 +12,7 @@ code {
     monospace;
 }
 .App {
-  background-color: #61dafb;
-  height: 100vh;
+  background-color: black;
+  min-height: calc(100vh-66px);
   padding-top: 10px;
 }

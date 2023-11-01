@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import '../css/Layout.css'
 
 const Layout = ()=> {
     return(
@@ -8,13 +9,13 @@ const Layout = ()=> {
                 <nav>
                     <ul>
                         <li>
-                            <Link to='/'>Home</Link>
+                            <Link to='/' className="link">Home</Link>
                         </li>
                         <li>
-                            <Link to='/contacts'>Contacts</Link>
+                            <Link to='/contacts' className="link">Contacts</Link>
                         </li>
                         <li>
-                            <Link to='/portfolio'>Portfolio</Link>
+                            <Link to='/portfolio' className="link">Portfolio</Link>
                         </li>
                     </ul>
                 </nav>
@@ -23,7 +24,7 @@ const Layout = ()=> {
 
             <Outlet/>
 
-            <footer>
+            <footer className="foot">
                 <h1>FOOOTER</h1>
             </footer>
         </>
